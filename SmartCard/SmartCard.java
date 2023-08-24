@@ -34,7 +34,11 @@ public class SmartCard {
   public double cost(Station s){
     int start_zone = station.getZone();
     int end_zone = s.getZone();
-    return 0.50 + Math.abs(end_zone - start_zone) * 0.75;
+    double cost = 0.50;
+    for (int i = start_zone; i < end_zone; i++){
+      cost += 0.75;
+    }
+    return cost;
   }
   public void exit(Station s){
     if (!onboard){
@@ -54,5 +58,24 @@ public class SmartCard {
   public void addMoney(double d){
     balance += d;
     System.out.println(String.format("$%.2f added. Your new balance is $%.2f", d, balance));
+  }
+}
+
+class Station {
+  private String name;
+  private int zone;
+  public Station(){
+    this.name = "";
+    this.zone = 0;
+  }
+  public Station(String name, int zone){
+    this.name = name;
+    this.zone = zone;
+  }
+  public String getName(){
+    return name;
+  }
+  public int getZone(){
+    return zone;
   }
 }
