@@ -34,28 +34,22 @@ public class SmartCard {
   public double cost(Station s){
     int start_zone = station.getZone();
     int end_zone = s.getZone();
-    double cost = 0.50;
-    for (int i = start_zone; i < end_zone; i++){
-      cost += 0.75;
-    }
-    return cost;
+    return 0.50 + Math.abs(end_zone - start_zone) * 0.75;
   }
   public void exit(Station s){
     if (!onboard){
       System.out.println("Error: Did not board?!");
+      return;
     }
-    else {
-      double cost = cost(s);
-      if (cost > balance){
-        System.out.println("Insufficient funds to exit. Please add more money.");
-      }
-      else {
-        balance -= cost;
-        onboard = false;
-        System.out.println(String.format("From %s to %s costs $%.2f. SmartCard has $%.2f",station.getName(), s.getName(), cost, balance));
-        station = null;
-      }
+    double cost = cost(s);
+    if (cost > balance){
+      System.out.println("Insufficient funds to exit. Please add more money.");
+      return;
     }
+    balance -= cost;
+    onboard = false;
+    System.out.println(String.format("From %s to %s costs $%.2f. SmartCard has $%.2f",station.getName(), s.getName(), cost, balance));
+    station = null;
   }
   public void addMoney(double d){
     balance += d;
