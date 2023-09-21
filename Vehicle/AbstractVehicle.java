@@ -1,5 +1,5 @@
 public abstract class AbstractVehicle implements Vehicle{
-    // Datafileds
+    // Datafields
     boolean on;
     double speed;
     String type;
